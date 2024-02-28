@@ -1,0 +1,76 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14.2-alpine
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - tcgplayer_postgres_data:/var/lib/postgresql/data
+    networks:
+      - tcgplayer-nw
+  web:
+    build: .
+    command: bash -c "make server"
+    volumes:
+      - ./:/app
+      - ./certs:/etc/ssl/certs
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./tcgplayer/settings/.env
+    networks:
+      - tcgplayer-nw
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis:6.2-alpine
+    networks:
+      - tcgplayer-nw
+    ports:
+      - "6371:6379"
+  celery:
+    build: .
+    command: bash -c "make celery"
+    volumes:
+      - ./:/app
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis
+    networks:
+      - tcgplayer-nw
+  celery_beat:
+    build: .
+    command: bash -c "make celery_beat"
+    volumes:
+      - ./:/app
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis
+    networks:
+      - tcgplayer-nw
+  firefox:
+    image: selenium/standalone-firefox
+    ports:
+      - 4444:4444
+    networks:
+      - tcgplayer-nw
+
+volumes:
+  tcgplayer_postgres_data:
+    driver: local
+
+networks:
+  tcgplayer-nw:
+    driver: bridge
