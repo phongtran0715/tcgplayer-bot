@@ -1,153 +1,55 @@
-<!--
-*** Thanks for checking out this README Template. If you have a suggestion that would
-*** make this better, please fork the repo and create a pull request or simply open
-*** an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
--->
+# Pokémon Card Monitor and Sync Bot
 
+## Description
 
+This project is a Python Django application designed to monitor Pokémon card statuses, including stock availability on the TCGPlayer website, and clone that card data. Additionally, the bot supports pushing Pokémon card data from TCGPlayer to a Shopify store, facilitating seamless product management and synchronization between platforms.
 
+## Features
 
+- **Card Monitoring**: Tracks Pokémon card availability and other status changes on TCGPlayer in real-time.
+- **Data Cloning**: Clones card data from TCGPlayer for local storage or processing.
+- **Shopify Integration**: Automatically pushes updated Pokémon card data from TCGPlayer to your Shopify store.
+- **Django Admin Interface**: Manage and monitor the bot's operations through a user-friendly Django admin interface.
+- **Automated Synchronization**: Ensures your Shopify store remains up-to-date with the latest Pokémon card releases and restocks.
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <h3 align="center">Tcgplayer</h3>
-  <div>
-
-  </div>
-
-  <p align="center">
-    Sub Title
-    <br />
-    <br />
-  </p>
-</p>
-
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
-
-* [About the Project](#about-the-project)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-<!-- GETTING STARTED -->
 ## Getting Started
 
+### Prerequisites
 
-## Requirements
-
-This is an example of how to list things you need to use the software and how to install them.
-* Python 3.9
+- Python 3.x
+- Django
+- Requests (for API calls)
+- A Shopify store with API access enabled
 
 ### Installation
 
-## Setup using Docker
-This required you having [docker](https://docs.docker.com/get-docker/)
- and [docker-compose](https://docs.docker.com/compose/install/) installed and running.
+1. Clone the repository to your local machine:
+`git clone https://github.com/phongtran0715/tcgplayer-bot`
 
-### Initial setup
-Make a copy of the `docker-compose.yml.sample` file. Optionally, make copies of the sample environment files if needed.
+2. Navigate to the cloned directory:
+`cd tcgplayer-bot`
 
-```bash
-cp docker-compose.yml.example docker-compose.yml
-```
-
-The project used django-environ package for managing environment variable. You also need to make a copy of the `.env.example` in the `tcgplayer/settings/` directory. 
-After that, udpate the variables in `.env` file with your local environment.
-
-```bash
-cp tcgplayer/settings/.env.example tcgplayer/settings/.env
-```
-
-Build docker containers
-```bash
-docker-compose build
-```
-
-Now start the core backend service
-```bash
-docker-compose up -d
-```
-___
-## Usage
-
-Set up initial user
-```
-$ python manage.py createsuperuser
-```
+3. Install the required Python dependencies:
+`pip install -r requirements.txt`
 
 
-<!-- USAGE EXAMPLES -->
-___
-## Usage
+### Configuration
 
-___
-### Running tests
-Run test suite
-```
-$ make test
-```
+1. Set up your `settings.py` in the Django project to include your TCGPlayer and Shopify API credentials.
+2. Configure the card monitoring criteria (e.g., specific Pokémon cards, categories) in the Django admin panel.
 
-Check sorting on imports
-```
-make isort
-```
+### Running the Application
 
-Check code formating
-```
-make flake8
-```
+To start the Django application, run:
 
-Autoformat code
-```
-make autopep8
-```
+`python manage.py runserver`
 
-Audit code
-```
-$ make flake8
-```
 
-Run checks
-```
-$ make checks
-```
+Navigate to the Django admin panel to start monitoring and manage your settings.
 
-___
-### How to use git branches: master, production, and feature
 
-The main development branch is `develop`. Every feature branch must start from this branch and merge back when tested and ready.
+## Contact
 
-When your feature branches are ready, please create `merge request` and assign to @phongtran0715.
+Phong Tran - Telegram: @phongtran0715 - Skype: @phongtran0715
 
-The feature branches must be named `feature/the-feature-name`.
-
-If you use git-flow, the settings are:
-* develpment branch name = "master"
-* production branch name = "production"
-* feature branch prefix = "feature" (default)
-* hotfix branch prefix = "hotfix" (default)
-* release branch prefix = "release" (default)
-___
-
-### API Documentation
+Project Link: [https://github.com/phongtran0715/tcgplayer-bot](https://github.com/phongtran0715/tcgplayer-bot)
